@@ -54,8 +54,7 @@ def display_metrics(metrics, path):
 
     # Mostra il grafico in Streamlit
     st.pyplot(fig)
-    https://github.com/AndreaAlessandrelli4/streamlit-metrics-app
-
+    
     # Scarica dati in CSV
     st.markdown("### Scarica i dati selezionati")
     csv = filtered_df.to_csv(index=False)
