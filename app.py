@@ -7,7 +7,7 @@ import io
 import json
 
 
-with open('/Users/andreaalessandrelli/Desktop/Legal/chat/metriche.json', 'r', encoding='utf-8') as f:
+with open('./metriche.json, 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 
