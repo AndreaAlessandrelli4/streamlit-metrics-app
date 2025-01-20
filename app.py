@@ -1,21 +1,9 @@
-try:
-    import streamlit as st
-    import matplotlib.pyplot as plt
-    import matplotlib.colors as mcolors
-    import numpy as np
-    import io
-    import json
-except:
-    pip install matplotlib
-    pip install numpy
-    pip install io
-    pip install json
-    import streamlit as st
-    import matplotlib.pyplot as plt
-    import matplotlib.colors as mcolors
-    import numpy as np
-    import io
-    import json
+import streamlit as st
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+import numpy as np
+import io
+import json
 
 
 
