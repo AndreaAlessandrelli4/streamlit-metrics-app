@@ -1,10 +1,23 @@
-import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
-import numpy as np
-import io
-import json
+try:
+    import streamlit as st
+    import matplotlib.pyplot as plt
+    import matplotlib.colors as mcolors
+    import numpy as np
+    import io
+    import json
+except:
+    pip install streamlit
+    pip install matplotlib
+    pip install numpy
+    pip install io
+    pip install json
+    import streamlit as st
+    import matplotlib.pyplot as plt
+    import matplotlib.colors as mcolors
+    import numpy as np
+    import io
+    import json
+
 
 
 with open('metriche.json', 'r', encoding='utf-8') as f:
