@@ -6,7 +6,6 @@ try:
     import io
     import json
 except:
-    pip install streamlit
     pip install matplotlib
     pip install numpy
     pip install io
