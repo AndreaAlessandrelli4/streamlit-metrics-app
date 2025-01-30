@@ -21,7 +21,7 @@ def navigate_data(data1, data2, path=[]):
 
 # Funzione per visualizzare e confrontare le metriche
 def display_metrics(metrics1, metrics2, path):
-    st.subheader(f"Confronto metriche per: {' > '.join(path)}")
+    #st.subheader(f"Confronto metriche per: {' > '.join(path)}")
 
     # Converti in DataFrame
     df1 = pd.DataFrame(metrics1.items(), columns=["Metrica", "Valore1"])
