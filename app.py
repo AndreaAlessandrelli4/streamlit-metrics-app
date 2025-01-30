@@ -3,66 +3,65 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import numpy as np
-import io
 import json
 
-
-
+# Carica i dati dai file JSON
 with open('metriche.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
+    data1 = json.load(f)
+with open('metriche1.json', 'r', encoding='utf-8') as f:
+    data2 = json.load(f)
 
-
-
-
-# Funzione ricorsiva per esplorare le voci annidate
-def navigate_data(data, path=[]):
-    if all(isinstance(v, (float, int)) for v in data.values()):  # Siamo al livello delle metriche
-        display_metrics(data, path)
+# Funzione ricorsiva per esplorare le voci annidate e confrontare i dati
+def navigate_data(data1, data2, path=[]):
+    if all(isinstance(v, (float, int)) for v in data1.values()):  # Siamo al livello delle metriche
+        display_metrics(data1, data2, path)
     else:  # Annidamento
-        selected_key = st.selectbox(f"Seleziona una voce ({' > '.join(path)})", list(data.keys()))
-        navigate_data(data[selected_key], path + [selected_key])
+        selected_key = st.selectbox(f"Seleziona una voce ({' > '.join(path)})", list(data1.keys()))
+        navigate_data(data1[selected_key], data2[selected_key], path + [selected_key])
 
-# Funzione per visualizzare le metriche
-def display_metrics(metrics, path):
-    st.subheader(f"Metriche per: {' > '.join(path)}")
+# Funzione per visualizzare e confrontare le metriche
+def display_metrics(metrics1, metrics2, path):
+    st.subheader(f"Confronto metriche per: {' > '.join(path)}")
 
     # Converti in DataFrame
-    df_metrics = pd.DataFrame(metrics.items(), columns=["Metrica", "Valore"])
+    df1 = pd.DataFrame(metrics1.items(), columns=["Metrica", "Valore1"])
+    df2 = pd.DataFrame(metrics2.items(), columns=["Metrica", "Valore2"])
+
+    # Unisci i dati
+    df = pd.merge(df1, df2, on="Metrica", how="outer").fillna(0)
 
     # Filtro basato sulla soglia
     threshold = st.slider("Soglia minima per visualizzare le metriche", 0.0, 1.0, 0.0, 0.05)
-    filtered_df = df_metrics[df_metrics["Valore"] >= threshold]
+    filtered_df = df[(df["Valore1"] >= threshold) | (df["Valore2"] >= threshold)]
 
     if filtered_df.empty:
         st.warning("Nessuna metrica supera la soglia definita.")
         return
 
-    # Colori con sfumature graduali (da rosso a verde)
-    norm = mcolors.Normalize(vmin=0, vmax=1)
-    cmap = plt.cm.get_cmap("RdYlGn")
-    colors = filtered_df["Valore"].apply(lambda x: mcolors.to_hex(cmap(norm(x))))
-
-    # Visualizza barre orizzontali
+    # Visualizza il confronto con barre affiancate
     fig, ax = plt.subplots()
-    bars = ax.barh(filtered_df["Metrica"], filtered_df["Valore"], color=colors)
+    x = np.arange(len(filtered_df))
+    width = 0.4
+
+    ax.barh(x - width/2, filtered_df["Valore1"], width, label='File 1', color='blue')
+    ax.barh(x + width/2, filtered_df["Valore2"], width, label='File 2', color='orange')
+    
+    ax.set_yticks(x)
+    ax.set_yticklabels(filtered_df["Metrica"])
     ax.set_xlim(0, 1)
     ax.set_xlabel("Valore")
-    ax.set_title("Metriche")
+    ax.set_title("Confronto Metriche")
+    ax.legend()
 
-    # Mostra valori accanto alle barre
-    for bar, value in zip(bars, filtered_df["Valore"]):
-        ax.text(value + 0.02, bar.get_y() + bar.get_height() / 2, f"{value:.2f}", va='center')
-
-    # Mostra il grafico in Streamlit
     st.pyplot(fig)
     
     # Scarica dati in CSV
     st.markdown("### Scarica i dati selezionati")
     csv = filtered_df.to_csv(index=False)
-    st.download_button(label="Scarica CSV", data=csv, file_name=f"{'_'.join(path)}_metrics.csv", mime="text/csv")
+    st.download_button(label="Scarica CSV", data=csv, file_name=f"{'_'.join(path)}_comparison.csv", mime="text/csv")
 
 # Titolo
-st.title("Visualizzazione delle metriche")
+st.title("Confronto delle metriche tra due file JSON")
 
 # Inizia la navigazione dai dati di base
-navigate_data(data)
+navigate_data(data1, data2)
