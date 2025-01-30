@@ -53,6 +53,10 @@ def display_metrics(metrics1, metrics2, path):
     ax.set_title("Confronto Metriche")
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
+    # Aggiungi etichette con i valori sopra le barre
+    for bars in [bars1, bars2]:
+        ax.bar_label(bars, fmt="%.2f", padding=3)
+
     st.pyplot(fig)
     
     # Scarica dati in CSV
