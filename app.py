@@ -16,7 +16,7 @@ def navigate_data(data1, data2, path=[]):
     if all(isinstance(v, (float, int)) for v in data1.values()):  # Siamo al livello delle metriche
         display_metrics(data1, data2, path)
     else:  # Annidamento
-        selected_key = st.selectbox(f"Seleziona una voce ({' > '.join(path)})", list(data1.keys()))
+        selected_key = st.selectbox(f"Seleziona una voce:", list(data1.keys()))
         navigate_data(data1[selected_key], data2[selected_key], path + [selected_key])
 
 # Funzione per visualizzare e confrontare le metriche
