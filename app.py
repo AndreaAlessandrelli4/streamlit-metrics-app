@@ -43,8 +43,8 @@ def display_metrics(metrics1, metrics2, path):
     x = np.arange(len(filtered_df))
     width = 0.4
 
-    ax.barh(x - width/2, filtered_df["Valore1"], width, label='File 1', color='blue')
-    ax.barh(x + width/2, filtered_df["Valore2"], width, label='File 2', color='orange')
+    ax.barh(x - width/2, filtered_df["Valore1"], width, label='Multiple prompt extraction', color='blue')
+    ax.barh(x + width/2, filtered_df["Valore2"], width, label='Unique prompt extraction', color='orange')
     
     ax.set_yticks(x)
     ax.set_yticklabels(filtered_df["Metrica"])
