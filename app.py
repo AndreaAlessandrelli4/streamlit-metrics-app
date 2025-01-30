@@ -8,7 +8,7 @@ import json
 # Carica i dati dai file JSON
 with open('metriche.json', 'r', encoding='utf-8') as f:
     data1 = json.load(f)
-with open('metriche1.json', 'r', encoding='utf-8') as f:
+with open('metriche_TOTALI_prompt_UNICO.json', 'r', encoding='utf-8') as f:
     data2 = json.load(f)
 
 # Funzione ricorsiva per esplorare le voci annidate e confrontare i dati
