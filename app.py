@@ -51,7 +51,7 @@ def display_metrics(metrics1, metrics2, path):
     ax.set_xlim(0, 1)
     ax.set_xlabel("Valore")
     ax.set_title("Confronto Metriche")
-    ax.legend()
+    ax.legend(loc ='upper left')
 
     st.pyplot(fig)
     
