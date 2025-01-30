@@ -61,7 +61,7 @@ def display_metrics(metrics1, metrics2, path):
     st.download_button(label="Scarica CSV", data=csv, file_name=f"{'_'.join(path)}_comparison.csv", mime="text/csv")
 
 # Titolo
-st.title("Confronto delle metriche tra due file JSON")
+st.title("Confronto delle metriche di estrazione")
 
 # Inizia la navigazione dai dati di base
 navigate_data(data1, data2)
