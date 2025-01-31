@@ -58,7 +58,7 @@ def display_metrics(metrics1, metrics2, path):
     ax.set_xlim(0, 1.1)
     ax.set_xticks([0.0, 0.2, 0.4, 0.6, 0.8, 1.0], [0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
     ax.set_xlabel("Valore")
-    ax.set_title(f"Confronto Metriche: {path.split('_')}")
+    ax.set_title(f"Confronto Metriche: {path}")
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
     # Aggiungi etichette con i valori sopra le barre
