@@ -21,13 +21,9 @@ def navigate_data(data1, data2, path=[]):
 
 # Funzione per visualizzare e confrontare le metriche
 def display_metrics(metrics1, metrics2, path):
-    #st.subheader(f"Confronto metriche per: {' > '.join(path)}")
-
-    # Converti in DataFrame
     df1 = pd.DataFrame(metrics1.items(), columns=["Metrica", "Valore1"])
     df2 = pd.DataFrame(metrics2.items(), columns=["Metrica", "Valore2"])
 
-    # Unisci i dati
     df = pd.merge(df1, df2, on="Metrica", how="outer").fillna(0)
 
     # Filtro basato sulla soglia
@@ -38,18 +34,25 @@ def display_metrics(metrics1, metrics2, path):
         st.warning("Nessuna metrica supera la soglia definita.")
         return
 
+    # Normalizza i valori per determinare l'intensità del colore
+    norm1 = filtered_df["Valore1"] / filtered_df["Valore1"].max() if filtered_df["Valore1"].max() > 0 else 0
+    norm2 = filtered_df["Valore2"] / filtered_df["Valore2"].max() if filtered_df["Valore2"].max() > 0 else 0
+
+    colors1 = [plt.cm.Blues(val) for val in norm1]  # Genera i colori dalla colormap "Blues"
+    colors2 = [plt.cm.Oranges(val) for val in norm2]  # Genera i colori dalla colormap "Oranges"
+
     # Visualizza il confronto con barre affiancate
     fig, ax = plt.subplots()
     x = np.arange(len(filtered_df))
     width = 0.4
 
-    bars1 =  ax.barh(x - width/2, filtered_df["Valore1"], width, label='Multiple prompt extraction', color='blue')
-    bars2 = ax.barh(x + width/2, filtered_df["Valore2"], width, label='Unique prompt extraction', color='orange')
+    bars1 = ax.barh(x - width/2, filtered_df["Valore1"], width, label='Multiple prompt extraction', color=colors1)
+    bars2 = ax.barh(x + width/2, filtered_df["Valore2"], width, label='Unique prompt extraction', color=colors2)
     
     ax.set_yticks(x)
     ax.set_yticklabels(filtered_df["Metrica"])
     ax.set_xlim(0, 1.1)
-    ax.set_xticks([0.0,0.2,0.4,0.6,0.8,1.0],[0.0,0.2,0.4,0.6,0.8,1.0])
+    ax.set_xticks([0.0, 0.2, 0.4, 0.6, 0.8, 1.0], [0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
     ax.set_xlabel("Valore")
     ax.set_title("Confronto Metriche")
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
