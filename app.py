@@ -39,7 +39,7 @@ def display_metrics(metrics1, metrics2, path):
     norm = plt.Normalize(filtered_df[["Valore1", "Valore2"]].min().min(), 
                          filtered_df[["Valore1", "Valore2"]].max().max())
 
-    colors1 = [cmaps.GMT_red2green(val) for val in filtered_df["Valore1"]]  # Prima barra
+    colors1 = [plt.cm.RdYlGn(val) for val in filtered_df["Valore1"]]  # Prima barra
     colors2 = [cmaps.GMT_red2green(val) for val in filtered_df["Valore2"]]  # Seconda barra
 
     # Visualizza il confronto con barre affiancate
