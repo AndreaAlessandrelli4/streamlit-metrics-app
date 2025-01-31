@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import numpy as np
 import json
+import colormaps as cmaps
 
 # Carica i dati dai file JSON
 with open('metriche_TOTALI.json', 'r', encoding='utf-8') as f:
@@ -38,8 +39,8 @@ def display_metrics(metrics1, metrics2, path):
     norm = plt.Normalize(filtered_df[["Valore1", "Valore2"]].min().min(), 
                          filtered_df[["Valore1", "Valore2"]].max().max())
 
-    colors1 = [plt.cm.RdYlGn(norm(val)) for val in filtered_df["Valore1"]]  # Prima barra
-    colors2 = [plt.cm.RdYlGn(norm(val)) for val in filtered_df["Valore2"]]  # Seconda barra
+    colors1 = [cmaps.drought_severity_r(norm(val)) for val in filtered_df["Valore1"]]  # Prima barra
+    colors2 = [cmaps.drought_severity_r(norm(val)) for val in filtered_df["Valore2"]]  # Seconda barra
 
     # Visualizza il confronto con barre affiancate
     fig, ax = plt.subplots()
