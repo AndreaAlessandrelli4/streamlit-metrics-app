@@ -35,20 +35,21 @@ def display_metrics(metrics1, metrics2, path):
         return
 
     # Normalizza i valori per determinare l'intensità del colore
-    norm1 = filtered_df["Valore1"] / filtered_df["Valore1"].max() if filtered_df["Valore1"].max() > 0 else 0
-    norm2 = filtered_df["Valore2"] / filtered_df["Valore2"].max() if filtered_df["Valore2"].max() > 0 else 0
+    norm = plt.Normalize(filtered_df[["Valore1", "Valore2"]].min().min(), 
+                         filtered_df[["Valore1", "Valore2"]].max().max())
 
-    colors1 = [plt.cm.RdYlGn(val) for val in norm1]  # Genera i colori dalla colormap "Blues"
-    colors2 = [plt.cm.Oranges(val) for val in norm2]  # Genera i colori dalla colormap "Oranges"
+    colors1 = [plt.cm.RdYlGn(norm(val)) for val in filtered_df["Valore1"]]  # Prima barra
+    colors2 = [plt.cm.RdYlGn(norm(val)) for val in filtered_df["Valore2"]]  # Seconda barra
 
     # Visualizza il confronto con barre affiancate
     fig, ax = plt.subplots()
     x = np.arange(len(filtered_df))
     width = 0.4
 
-    bars1 = ax.barh(x - width/2, filtered_df["Valore1"], width, label='Multiple prompt extraction', color=colors1)
-    bars2 = ax.barh(x + width/2, filtered_df["Valore2"], width, label='Unique prompt extraction', color=colors2)
-    
+    # Crea le barre con pattern
+    bars1 = ax.barh(x - width/2, filtered_df["Valore1"], width, color=colors1, label='Multiple prompt extraction', edgecolor='black', hatch="")
+    bars2 = ax.barh(x + width/2, filtered_df["Valore2"], width, color=colors2, label='Unique prompt extraction', edgecolor='black', hatch="///")
+
     ax.set_yticks(x)
     ax.set_yticklabels(filtered_df["Metrica"])
     ax.set_xlim(0, 1.1)
