@@ -38,7 +38,7 @@ def display_metrics(metrics1, metrics2, path):
     norm1 = filtered_df["Valore1"] / filtered_df["Valore1"].max() if filtered_df["Valore1"].max() > 0 else 0
     norm2 = filtered_df["Valore2"] / filtered_df["Valore2"].max() if filtered_df["Valore2"].max() > 0 else 0
 
-    colors1 = [plt.cm.Blues(val) for val in norm1]  # Genera i colori dalla colormap "Blues"
+    colors1 = [plt.cm.Greens(val) for val in norm1]  # Genera i colori dalla colormap "Blues"
     colors2 = [plt.cm.Oranges(val) for val in norm2]  # Genera i colori dalla colormap "Oranges"
 
     # Visualizza il confronto con barre affiancate
