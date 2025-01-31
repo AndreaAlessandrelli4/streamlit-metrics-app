@@ -47,8 +47,8 @@ def display_metrics(metrics1, metrics2, path):
     width = 0.4
 
     # Crea le barre con pattern
-    bars11 = ax.barh(x - width/2, filtered_df["Valore1"], width,  label='Multiple prompt extraction', edgecolor='black', hatch="o")
-    bars22 = ax.barh(x + width/2, filtered_df["Valore2"], width,  label='Unique prompt extraction', edgecolor='black', hatch="///")
+    bars11 = ax.barh(x - width/2, filtered_df["Valore1"], width,  color=None, label='Multiple prompt extraction', edgecolor='black', hatch="o")
+    bars22 = ax.barh(x + width/2, filtered_df["Valore2"], width,  color=None,label='Unique prompt extraction', edgecolor='black', hatch="///")
     bars1 = ax.barh(x - width/2, filtered_df["Valore1"], width, color=colors1, edgecolor='black', hatch="o")
     bars2 = ax.barh(x + width/2, filtered_df["Valore2"], width, color=colors2, edgecolor='black', hatch="///")
 
