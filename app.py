@@ -49,7 +49,7 @@ def display_metrics(metrics1, metrics2, path):
     # Crea le barre con pattern
     bars11 = ax.barh(x - width/2, filtered_df["Valore1"], width,  color='white', label='Multiple prompt extraction', edgecolor='black', hatch="x")
     bars22 = ax.barh(x + width/2, filtered_df["Valore2"], width,  color='white',label='Unique prompt extraction', edgecolor='black', hatch="///")
-    bars1 = ax.barh(x - width/2, filtered_df["Valore1"], width, color=colors1, edgecolor='black', hatch="x")
+    bars1 = ax.barh(x - width/2, filtered_df["Valore1"], width, color=colors1, edgecolor='black', hatch="*")
     bars2 = ax.barh(x + width/2, filtered_df["Valore2"], width, color=colors2, edgecolor='black', hatch="///")
 
     ax.set_yticks(x)
